@@ -4,156 +4,278 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Telegram Settings</title>
+    <title>Freelancer Notifier</title>
     <style>
+        :root {
+            --bg: #f0f2f5;
+            --surface: #ffffff;
+            --text: #1a1d21;
+            --muted: #5c6370;
+            --border: #e2e5eb;
+            --accent: #0d9488;
+            --accent-hover: #0f766e;
+            --danger: #dc2626;
+            --danger-hover: #b91c1c;
+            --radius: 12px;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #121418;
+                --surface: #1c1f26;
+                --text: #e8eaed;
+                --muted: #9aa0a8;
+                --border: #2d323c;
+                --accent: #2dd4bf;
+                --accent-hover: #5eead4;
+                --danger: #f87171;
+                --danger-hover: #fca5a5;
+                --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
-            padding: 20px;
-            background: #f4f6f9;
-            width: 300px;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            width: 340px;
+            min-height: 420px;
         }
 
-        .container {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        .wrap {
+            padding: 16px;
         }
 
-        h2 {
-            margin-top: 0;
-            font-size: 20px;
-            color: #333;
-            text-align: center;
+        header {
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            margin: 6px 0 0;
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 18px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
         }
 
         label {
             display: block;
-            margin-top: 15px;
+            margin-top: 14px;
+            font-size: 12px;
             font-weight: 600;
-            color: #555;
+            color: var(--muted);
+        }
+
+        label:first-of-type {
+            margin-top: 0;
         }
 
         input {
             width: 100%;
-            padding: 10px;
             margin-top: 6px;
-            border: 1px solid #ccc;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
+            font-family: ui-monospace, 'Cascadia Code', monospace;
+            background: var(--bg);
+            color: var(--text);
             outline: none;
-            width: calc(100% - 20px);
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
 
-        div.button-container {
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+        }
+
+        input::placeholder {
+            color: var(--muted);
+            opacity: 0.7;
+        }
+
+        .row {
             display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            column-gap: 5px;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .row button {
+            flex: 1;
         }
 
         button {
-            width: 100%;
-            margin-top: 15px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 6px;
-            font-size: 0.85rem;
-            border-radius: 8px;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .error,
-        .success {
+            font-family: inherit;
             font-size: 13px;
-            margin-top: 10px;
-            text-align: center;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            transition: background 0.15s ease, transform 0.05s ease;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            filter: brightness(0.97);
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid color-mix(in srgb, var(--danger) 35%, var(--border));
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            background: color-mix(in srgb, var(--danger) 12%, transparent);
+        }
+
+        .msg {
+            font-size: 12px;
+            margin-top: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            line-height: 1.4;
             display: none;
         }
 
-        .error {
-            color: #d93025;
+        .msg.error {
+            display: block;
+            background: color-mix(in srgb, var(--danger) 12%, transparent);
+            color: var(--danger);
+            border: 1px solid color-mix(in srgb, var(--danger) 25%, transparent);
         }
 
-        .success {
-            color: #34a853;
+        .msg.success {
+            display: block;
+            background: color-mix(in srgb, var(--accent) 14%, transparent);
+            color: var(--accent);
+            border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
         }
 
-        .footer {
+        .msg.info {
+            display: block;
+            background: var(--bg);
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+
+        footer {
+            margin-top: 14px;
             text-align: center;
-            margin-top: 10px;
-            font-size: 12px;
-            color: #aaa;
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.5;
         }
 
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: #1e1e1e;
-                color: #e0e0e0;
-            }
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
 
-            .container {
-                background: #2c2c2c;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            }
+        footer a:hover {
+            text-decoration: underline;
+        }
 
-            input {
-                background: #3c3c3c;
-                color: #fff;
-                border: 1px solid #555;
-                outline: none;
-                width: calc(100% - 20px);
-            }
-
-            button {
-                background-color: #3390ff;
-            }
-
-            button:hover {
-                background-color: #2670cc;
-            }
-
-            .footer {
-                color: #777;
-            }
-
-            h2 {
-                color: #e0e0e0;
-            }
-
-            label {
-                color: #ccc;
-            }
+        .hint {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.5;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2>Telegram Config</h2>
-        <label for="botToken">Bot Token</label>
-        <input type="text" id="botToken" placeholder="Enter your Telegram Bot Token" />
+    <div class="wrap">
+        <header>
+            <span class="badge">Telegram</span>
+            <h1>Freelancer job alerts</h1>
+            <p class="subtitle">Keep <strong>www.freelancer.com</strong> open (e.g. project search) so the page can receive live updates.</p>
+        </header>
 
-        <label for="chatId">Chat ID</label>
-        <input type="text" id="chatId" placeholder="Enter your Chat ID" />
+        <div class="card">
+            <label for="botToken">Bot token</label>
+            <input type="password" id="botToken" placeholder="123456789:AAH…" autocomplete="off" spellcheck="false" />
 
-        <div class="button-container">
-            <button id="saveBtn">Save Settings</button>
-            <button id="resetBtn" style="background-color:#dc3545;">Reset</button>
+            <label for="chatId">Chat ID</label>
+            <input type="text" id="chatId" placeholder="Your user or group chat id" autocomplete="off" spellcheck="false" />
+
+            <div class="row">
+                <button type="button" class="btn-primary" id="saveBtn">Save</button>
+                <button type="button" class="btn-secondary" id="testBtn">Test</button>
+            </div>
+            <div class="row">
+                <button type="button" class="btn-danger" id="resetBtn">Clear saved data</button>
+            </div>
+
+            <div class="msg" id="feedbackMsg" role="status"></div>
+
+            <p class="hint">Settings sync with Chrome if you are signed in. After saving, open or refresh a Freelancer tab — no manual reload needed if a tab is already open.</p>
         </div>
 
-        <div class="error" id="errorMsg">⚠️ Please fill in both fields.</div>
-        <div class="success" id="successMsg">✅ Settings saved!</div>
+        <footer>
+            <a href="https://www.freelancer.com/search/projects" target="_blank" rel="noopener noreferrer">Open Freelancer project search</a>
+        </footer>
     </div>
-    <div class="footer">Saved to your Google account</div>
 
     <script src="popup.js"></script>
 </body>

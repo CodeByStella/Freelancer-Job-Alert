@@ -6,11 +6,16 @@
     "permissions": [
         "storage",
         "scripting",
-        "activeTab"
+        "activeTab",
+        "tabs"
     ],
     "host_permissions": [
-        "https://www.freelancer.com/*"
+        "https://www.freelancer.com/*",
+        "https://api.telegram.org/*"
     ],
+    "background": {
+        "service_worker": "background.js"
+    },
     "action": {
         "default_popup": "popup.html",
         "default_title": "Freelancer Notifier",
