@@ -2,6 +2,8 @@
 
 This Chrome Extension monitors Freelancer.com for new project notifications and unread messages — and sends them to your Telegram bot.
 
+**How it works (architecture, WebSocket logic, data flow):** see [HOW_IT_WORKS.md](HOW_IT_WORKS.md).
+
 ## 📦 Features
 
 - 🔔 Detects new projects and messages on Freelancer.com
@@ -36,10 +38,11 @@ This Chrome Extension monitors Freelancer.com for new project notifications and 
 
 ## 🛡️ Permissions Used
 
-- `storage`: To save user settings (token, chat ID, theme)
-- `activeTab`: To observe Freelancer page mutations
-- `scripting`: To inject code if needed
-- `host_permissions`: `https://www.freelancer.com/*`
+- `storage`: Save bot token and chat ID (`chrome.storage.sync`)
+- `tabs`: Find open Freelancer tabs to push config updates after save/clear
+- `activeTab`: Available for tab-focused actions
+- `scripting`: Reserved for programmatic injection if needed
+- `host_permissions`: `https://www.freelancer.com/*` (page scripts), `https://api.telegram.org/*` (Telegram API from popup/injected page)
 
 ---
 
