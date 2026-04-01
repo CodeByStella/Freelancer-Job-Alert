@@ -57,6 +57,8 @@ function observeForNotification() {
           return;
         }
 
+        console.debug('Freelancer Notifier: WS message received', raw);
+
         if (raw.startsWith('a')) {
           raw = raw.slice(1);
         }
